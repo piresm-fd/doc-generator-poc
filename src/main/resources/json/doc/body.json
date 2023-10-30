@@ -1,0 +1,32 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+        {
+            "type": "table",
+            "attrs": {
+                "isNumberColumnEnabled": false,
+                "layout": "default",
+                "width": 760
+            },
+            "content": [{{table1}}]
+        },
+        {
+            "type": "paragraph",
+            "content": []
+        },
+        {
+            "type": "table",
+            "attrs": {
+                "isNumberColumnEnabled": false,
+                "layout": "wide",
+                "width": 960
+            },
+            "content": [{{table2}}]
+        },
+        {
+            "type": "paragraph",
+            "content": []
+        }
+    ]
+}

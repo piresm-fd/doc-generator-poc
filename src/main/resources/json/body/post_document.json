@@ -1,0 +1,18 @@
+{
+    "type": "page",
+    "title": "This is my page generated 2",
+    "space": {
+        "key": "~6319c15462fe1e6eac6dfd7d"
+    },
+    "body": {
+        "atlas_doc_format": {
+            "value": {{document}},
+            "representation": "atlas_doc_format"
+        }
+    },
+    "ancestors": [
+        {
+            "id": 307566936986
+        }
+    ]
+}

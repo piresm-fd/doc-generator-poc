@@ -1,0 +1,15 @@
+{
+    "type": "tableCell",
+    "attrs": {},
+    "content": [
+        {
+            "type": "paragraph",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "{{text}}"
+                }
+            ]
+        }
+    ]
+}
