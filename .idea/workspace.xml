@@ -5,23 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12532136-998c-44d5-bd5f-3ec144348f0a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ocpt/poc/ConfluenceDoc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ocpt/poc/ITextPdf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ocpt/utils/FileUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ocpt/utils/HttpRequestUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ocpt/utils/JsonPathUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ocpt/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ocpt/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/configs/table/Markets_Table_Structure.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/configs/table/Table1_Template.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pdf/table/Table1_Template.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/configs/table/Table2_Template.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pdf/table/Table2_Template.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/json/body/post_document.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/json/doc/body.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/json/doc/table_cell.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/json/doc/table_header.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/json/doc/table_row.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ocpt/poc/ITextPdf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ocpt/poc/ITextPdf.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +82,7 @@
       <updated>1698667567736</updated>
       <workItem from="1698667573234" duration="1000" />
       <workItem from="1698667706175" duration="9882000" />
-      <workItem from="1698683328427" duration="40724000" />
+      <workItem from="1698683328427" duration="44858000" />
     </task>
     <servers />
   </component>
@@ -124,13 +110,11 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/ocpt/poc/ITextPdf.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/ocpt/Main.java</url>
-          <line>70</line>
-          <option name="timeStamp" value="36" />
+          <line>71</line>
+          <properties>
+            <option name="lambda-ordinal" value="0" />
+          </properties>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

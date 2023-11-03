@@ -13,10 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
 
+    private static final List<String> HANDICAPMARKETS = List.of(
+            "|Total Points (Over/Under)|",
+            "|First Half Total|",
+            "|1st Quarter Total|",
+            "|2nd Quarter Total|"
+    );
     private static final String baseTeamJsonPath = "$.oxip.response.event.@name";
     private static Map<String, String> jsonPathConfig = new HashMap<>();
     private static final String JSONPATH_HANDICAP_FORMAT = "$.oxip.response.event.market[?(@.@marketTemplateName == '%1$s')].@handicap";
@@ -32,6 +37,22 @@ public class Main {
 
         String state = "az";
 
+        List<String> markets = List.of(
+                "|Money Line|",
+                "|Match Handicap (2-Way)|",
+                "|Alternate Handicap|",
+                "|Handicap - Second Half|",
+                "|Total Points (Over/Under)|",
+                "|First Half Total|",
+                "|1st Quarter Total|",
+                "|2nd Quarter Total|"
+        );
+
+
+        String alternateSelectionsCSV = "/Users/miguel.pires/Downloads/Files/Inplay/MA/settlement/market_info/preplay_sgpp_markets_info.csv";
+
+
+        //Optional
         List<String> phases = List.of(
                 "Phase 1",
                 "Phase 2",
@@ -39,38 +60,22 @@ public class Main {
                 "Clean Up"
         );
 
-        List<String> marketsNotHandicapWinningCond = List.of(
-                "|Money Line|",
-                "|Match Handicap (2-Way)|",
-                "|Alternate Handicap|",
-                "|Handicap - Second Half|"
-        );
-
-
-        List<String> marketsHandicapWinningCond = List.of(
-                "|Total Points (Over/Under)|",
-                "|First Half Total|",
-                "|1st Quarter Total|",
-                "|2nd Quarter Total|"
-        );
-
-        String alternateSelections = "/Users/miguel.pires/Downloads/Files/Inplay/MA/settlement/market_info/preplay_sgpp_markets_info.csv";
-
-
         /*
          INPUT
          */
 
-        List<String> preplaySGPPSelections = FileUtils.csvHandler(alternateSelections, ",").stream()
+        List<String> preplaySGPPSelections = FileUtils.csvHandler(alternateSelectionsCSV, ",").stream()
                 .filter(l -> l[1].contains("Alternate Spread"))
                 .map(l -> l[2])
                 .collect(Collectors.toList());
 
         String alternateSelectionStr = toString(preplaySGPPSelections);
 
-        for (String handicapMarket : marketsHandicapWinningCond){
-            jsonPathConfig.put(handicapMarket+"_handicap",
-                    String.format(JSONPATH_HANDICAP_FORMAT, handicapMarket));
+        for (String handicapMarket : HANDICAPMARKETS){
+            if(markets.contains(handicapMarket)) {
+                jsonPathConfig.put(handicapMarket + "_handicap",
+                        String.format(JSONPATH_HANDICAP_FORMAT, handicapMarket));
+            }
         }
 
         String urlFormat = "http://%1$s-obpubfd-prd%1$s.prd.fndlsb.net/dbPublishLatest?template=getEventDetails&system=feeds&displayed=ALL&output=JSON&feedName=POWERS_FEED&returnExternalFeedReferences=Y&settled=ALL&displayed=ALL&event=%2$s";
@@ -84,14 +89,8 @@ public class Main {
         ITextPdf.CONFIGS.put("base_team",baseTeam);
         ITextPdf.CONFIGS.put("inplay_events", toString(inplayEventIDs));
         ITextPdf.CONFIGS.put("clean_events", toString(cleanEventIDs));
-        List<String> markets = Stream.concat(marketsNotHandicapWinningCond.stream(), marketsHandicapWinningCond.stream())
-                .collect(Collectors.toList());
         ITextPdf.createPdf(markets, phases);
 
-    }
-
-    private static String toString(String[] arr){
-        return toString(Arrays.asList(arr));
     }
 
     private static String toString(List<String> lst){
