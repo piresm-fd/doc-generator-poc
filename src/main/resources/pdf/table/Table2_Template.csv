@@ -1,0 +1,9 @@
+﻿Market Type;Market Type Ramp ID;Selection WIN;Winning Condition
+|Money Line|;14039_3184;Home (Not {{base_team}});N/A
+|Match Handicap (2-Way)|;14039_3185;Home (Not {{base_team}});
+|Total Points (Over/Under)|;14039_3187;Under;<{{|Total Points (Over/Under)|_handicap}}
+|First Half Total|;14039_4348;Under;<{{|First Half Total|_handicap}}
+|Alternate Handicap|;14039_11985;{{alternate_selections}};WIN
+|Handicap - Second Half|;14039_33831;NOT {{base_team}};WIN
+|1st Quarter Total|;14039_33838;Under;<{{|1st Quarter Total|_handicap}}
+|2nd Quarter Total|;14039_33839;Under;<{{|2nd Quarter Total|_handicap}}

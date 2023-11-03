@@ -1,0 +1,4 @@
+﻿Phases;Phase 1;Phase 2;Phase 3;Clean Up
+Turn INPLAY;;{{inplay_events}};;
+Settlement;;;{{inplay_events}};{{clean_events}}
+Handicap Freeze;;✓ Y;;

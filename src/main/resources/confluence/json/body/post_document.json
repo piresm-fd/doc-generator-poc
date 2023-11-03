@@ -6,7 +6,7 @@
     },
     "body": {
         "atlas_doc_format": {
-            "value": {{document}},
+            "value": "{{document}}",
             "representation": "atlas_doc_format"
         }
     },
