@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -62,18 +63,18 @@ public class ITextPdf {
         //Filters phases
         String[] allPhases = listTable1.get(0);
         List<Integer> missingIndexes = findMissingIndexes(allPhases, phases);
+        missingIndexes.remove(Integer.valueOf(0));
         listTable1.replaceAll(r->copyArrayExcludeIndexes(r,missingIndexes));
         //
         Table table1 = createPDFTable(listTable1);
         document.add(table1);
         document.add(new Paragraph("\n"));
         List<String[]> listTable2 = FileUtils.csvHandler(TABLE2TEMPLATEPATH, ";");
-        // Filters Markets
-        listTable2.subList(1, listTable2.size()).forEach(row -> {
-            if (!markets.contains(row[0])) {
-                listTable2.remove(row);
-            }
-        });
+
+    // Create an iterator for the sublist starting from the second element
+
+        // Iterate and remove elements using the iterator
+        listTable2.subList(1, listTable2.size()).removeIf(row -> !markets.contains(row[0]));
         //
         Table table2 = createPDFTable(listTable2);
         document.add(table2);
