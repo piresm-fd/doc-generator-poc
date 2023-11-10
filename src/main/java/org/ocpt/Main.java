@@ -38,14 +38,14 @@ public class Main {
 
         List<String> markets = List.of(
                 "|Money Line|",
+                "|Match Handicap (2-Way)|",
                 "|Total Points (Over/Under)|",
                 "|First Half Total|",
+                "|Alternate Handicap|",
                 "|Second Half Handicap|",
                 "|1st Quarter Total|",
-                "|2nd Quarter Total|",
-                "|Alternate Handicap|"
+                "|2nd Quarter Total|"
         );
-
 
         String alternateSelectionsCSV = "/Users/miguel.pires/Downloads/preplay_sgpp_markets_info.csv";
 
