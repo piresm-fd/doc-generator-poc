@@ -3,15 +3,19 @@ package org.ocpt;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import org.apache.commons.lang3.StringUtils;
 import org.ocpt.poc.ITextPdf;
 import org.ocpt.utils.FileUtils;
 import org.ocpt.utils.HttpRequestUtils;
 import org.ocpt.utils.JsonPathUtils;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -31,8 +35,9 @@ public class Main {
          INPUT
          */
 
-        List<String> inplayEventIDs = List.of("11337919","11337920","11337921","11337922","11337923","11337924","11337925","11337926","11337927","11337928");
-        List<String> cleanEventIDs = List.of("11337929","11337930","11337931","11337932","11337933","11337934","11337935","11337936","11337937","11337938","11337940","11337969","11337970");
+        List<String> inplayEventIDs = List.of("11367291","11367292","11367293","11367294","11367295","11367296","11367297","11367299","11367300","11367301");
+        List<String> inplayEventIDs2 = List.of("11367302","11367303","11367306","11367307","11367308","11367310","11367311");
+        List<String> cleanEventIDs = List.of("11367302","11367303","11367306","11367307","11367308","11367310","11367311","11367312","11367313","11367314","11367315","11367316","11367332");
 
         String state = "az";
 
@@ -47,11 +52,13 @@ public class Main {
                 "|2nd Quarter Total|"
         );
 
+        //String alternateSelectionsCSV = "/Users/miguel.pires/Documents/GitHub/pe-tests-archive/sportsbook/prod_utils/FILES/inPlay/MA/settlement/market_info/preplay_sgpp_markets_info.csv";
         String alternateSelectionsCSV = "/Users/miguel.pires/Downloads/preplay_sgpp_markets_info.csv";
 
 
         //Optional
         List<String> phases = List.of(
+                "Phase 0",
                 "Phase 1",
                 "Phase 2",
                 "Phase 3",
@@ -80,21 +87,48 @@ public class Main {
         }
 
         String urlFormat = "http://%1$s-obpubfd-prd%1$s.prd.fndlsb.net/dbPublishLatest?template=getEventDetails&system=feeds&displayed=ALL&output=JSON&feedName=POWERS_FEED&returnExternalFeedReferences=Y&settled=ALL&displayed=ALL&event=%2$s";
-        String url = String.format(urlFormat, state, inplayEventIDs.get(0));
+        String url = String.format(urlFormat, state, inplayEventIDs.get(1));
         String response = HttpRequestUtils.makeRequest("GET", url, null);
         DocumentContext documentContext = JsonPath.parse(response);
         jsonPathConfig.forEach((k,v) -> ITextPdf.CONFIGS.put(k,JsonPathUtils.getNode(documentContext,v)));
 
-        String baseTeam = FileUtils.getSubstring(JsonPathUtils.getNode(documentContext,baseTeamJsonPath), "TEST", "At");
+        String baseTeam = FileUtils.getSubstring(JsonPathUtils.getNode(documentContext,baseTeamJsonPath), "TEST ", " At");
         ITextPdf.CONFIGS.put("alternate_selections", alternateSelectionStr);
         ITextPdf.CONFIGS.put("base_team",baseTeam);
         ITextPdf.CONFIGS.put("inplay_events", toString(inplayEventIDs));
+        ITextPdf.CONFIGS.put("inplay_events2", toString(inplayEventIDs2));
         ITextPdf.CONFIGS.put("clean_events", toString(cleanEventIDs));
         ITextPdf.createPdf(markets, phases);
+/*
+        List<String> newList = Stream.concat(inplayEventIDs.stream(), cleanEventIDs.stream())
+                .sorted()
+                .collect(Collectors.toList());
 
+        //newList = Stream.of("11367294","11367296","11367302","11367300","11367315","11367308","11367299","11367293","11367292","11367295","11367306","11367314","11367312","11367316","11367310","11367297","11367303","11367301","11367307","11367291","11367313","11367311","11367332").sorted().collect(Collectors.toList());
+        generateList(state, newList);
+*/
     }
 
     private static String toString(List<String> lst){
         return String.join("\n", lst);
+    }
+
+    private static void generateList(String state, List<String> lst) throws IOException {
+        String urlFormat = "http://%1$s-obpubfd-prd%1$s.prd.fndlsb.net/dbPublishLatest?template=getEventDetails&system=feeds&displayed=ALL&output=JSON&feedName=POWERS_FEED&returnExternalFeedReferences=Y&settled=ALL&displayed=ALL&event=%2$s";
+        String jPath = "$.oxip.response.event.externalReference[?(@.@name == 'BETFAIR')].@id";
+        String jFormat = "{\n  betfairId : \"%1$s\",\n  rampId: \"%2$s\"\n}";
+        List<String> str = new ArrayList<>();
+        List<String> str2 = new ArrayList<>();
+        for(String s : lst){
+            String url = String.format(urlFormat, state, s);
+            String response = HttpRequestUtils.makeRequest("GET", url, null);
+            DocumentContext documentContext = JsonPath.parse(response);
+            String betfairId = JsonPathUtils.getNode(documentContext,jPath);
+            str.add(String.format(jFormat,betfairId,s));
+            str2.add("- "+betfairId);
+        }
+        System.out.println(StringUtils.join(str,",\n"));
+        System.out.println("\n\n\n");
+        System.out.println(StringUtils.join(str2,"\n"));
     }
 }
